@@ -558,55 +558,54 @@
         });
 
         // Form submission handling
-const form = document.getElementById('contactForm');
-const submitBtn = document.getElementById('submitBtn');
-const formMessage = document.getElementById('formMessage');
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-    formMessage.style.display = 'none';
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            formMessage.style.display = 'none';
 
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        message: document.getElementById('message').value,
-        timestamp: new Date().toISOString()
-    };
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value,
+                timestamp: new Date().toISOString()
+            };
 
-    try {
-        // Your n8n webhook URL
-        const n8nWebhookUrl = 'https://n8ngilbert.app.n8n.cloud/webhook/contact-form';
-        
-        const response = await fetch(n8nWebhookUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-            mode: 'cors'
+            try {
+                // Your n8n webhook URL
+                const n8nWebhookUrl = 'https://n8ngilbert.app.n8n.cloud/webhook/contact_form';
+                
+                const response = await fetch(n8nWebhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    formMessage.textContent = 'Thank you! Your message has been sent successfully. We\'ll get back to you soon.';
+                    formMessage.className = 'form-message success';
+                    formMessage.style.display = 'block';
+                    form.reset();
+                } else {
+                    throw new Error('Failed to send message');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                formMessage.textContent = 'Oops! Something went wrong. Please try again or email us directly.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
         });
-
-        // Accept any response status - n8n webhook will process it
-        // Success if fetch completes without network error
-        formMessage.textContent = 'Thank you! Your message has been sent successfully. We\'ll get back to you soon.';
-        formMessage.className = 'form-message success';
-        formMessage.style.display = 'block';
-        form.reset();
-        
-    } catch (error) {
-        console.error('Error:', error);
-        formMessage.textContent = 'Oops! Something went wrong. Please try again or email us directly.';
-        formMessage.className = 'form-message error';
-        formMessage.style.display = 'block';
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Message';
-    }
-});
-
 
         // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
