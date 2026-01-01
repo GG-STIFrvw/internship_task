@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Northbound Agency - We Build Together</title>
+    <title>Limit Launcher Agency - We Build Together</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+
     <style>
         * {
             margin: 0;
@@ -15,12 +18,11 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #0a0a0a;
-            color: #fff;
+            background: #ffffff;
+            color: #1a1a1a;
             overflow-x: hidden;
         }
 
-        /* Header */
         header {
             position: fixed;
             width: 100%;
@@ -29,21 +31,56 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.8);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
         }
 
-        .logo {
-            font-size: 28px;
+        .logo-img {
+        height: 40px;
+        width: auto;
+        display: block;
+    }
+
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .logo-container:hover {
+            opacity: 0.7;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 20px;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 24px;
             font-weight: 700;
             letter-spacing: -1px;
+            color: #1a1a1a;
         }
 
         nav a {
-            color: #fff;
+            color: #1a1a1a;
             text-decoration: none;
             margin-left: 30px;
             transition: opacity 0.3s;
+            font-weight: 500;
         }
 
         nav a:hover {
@@ -51,19 +88,19 @@
         }
 
         .cta-btn {
-            background: #fff;
-            color: #0a0a0a;
+            background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+            color: #fff;
             padding: 12px 28px;
             border-radius: 30px;
             font-weight: 600;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .cta-btn:hover {
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
 
-        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
@@ -71,6 +108,37 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.5),
+                    rgba(255,255,255,0.45)
+                ),
+                url("header.png");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(118, 75, 162, 0.1) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            border-radius: 50%;
         }
 
         .hero-content {
@@ -84,14 +152,29 @@
             line-height: 1;
             margin-bottom: 20px;
             letter-spacing: -3px;
+            background: linear-gradient(135deg, white 5%, white 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow:
+                0 1px 4px rgba(0, 0, 0, 0.09);
         }
 
-        .hero-subtitle {
-            font-size: clamp(24px, 3vw, 36px);
-            font-weight: 700;
-            margin-bottom: 30px;
-            opacity: 0.9;
+        .hero-together {
+            font-size: clamp(48px, 8vw, 110px);
+            font-weight: 800;
+            letter-spacing: -2px;
+
+            /* lighter, elegant color */
+            color: #fafafa;
+
+            /* subtle depth */
+            text-shadow:
+                0 2px 4px rgba(0, 0, 0, 0.09);
+
+            margin-top: -10px;
         }
+
 
         .scroll-indicator {
             position: absolute;
@@ -99,14 +182,15 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 14px;
-            opacity: 0.7;
+            color: #718096;
         }
 
-        /* Marquee */
         .marquee-section {
-            padding: 60px 0;
-            background: #111;
+            padding: 30px 0;
+            background: #f7fafc;
             overflow: hidden;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .marquee {
@@ -123,7 +207,11 @@
 
         .marquee span {
             margin: 0 40px;
-            opacity: 0.5;
+            background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.7;
         }
 
         @keyframes scroll {
@@ -131,11 +219,11 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Services Section */
         .services {
             padding: 120px 50px;
             max-width: 1400px;
             margin: 0 auto;
+            background: #ffffff;
         }
 
         .section-title {
@@ -143,6 +231,8 @@
             font-weight: 800;
             margin-bottom: 80px;
             letter-spacing: -2px;
+            text-align: center;
+            color: #1a1a1a;
         }
 
         .services-grid {
@@ -152,37 +242,76 @@
         }
 
         .service-card {
-            background: #111;
-            padding: 50px;
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+            padding: 40px;
             border-radius: 20px;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
             opacity: 0;
             transform: translateY(50px);
+            border: 2px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
         }
 
         .service-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
         }
 
         .service-icon {
             font-size: 48px;
             margin-bottom: 20px;
+            display: inline-block;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 12px;
         }
 
         .service-card h3 {
             font-size: 28px;
             margin-bottom: 15px;
+            color: #1a1a1a;
         }
 
         .service-card p {
-            opacity: 0.7;
+            color: #4a5568;
             line-height: 1.6;
         }
 
-        /* About Section */
+        .service-image {
+            width: 100%;
+            height: 180px;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
         .about {
             padding: 120px 50px;
-            background: #0f0f0f;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
         }
 
         .about-content {
@@ -198,12 +327,13 @@
             font-size: clamp(40px, 5vw, 64px);
             margin-bottom: 30px;
             letter-spacing: -2px;
+            color: #1a1a1a;
         }
 
         .about-text p {
             font-size: 18px;
             line-height: 1.8;
-            opacity: 0.8;
+            color: #4a5568;
             margin-bottom: 20px;
         }
 
@@ -213,18 +343,39 @@
             gap: 20px;
         }
 
-        .team-img {
+        .team-img img {
             width: 100%;
-            aspect-ratio: 1;
-            background: #1a1a1a;
-            border-radius: 20px;
-            overflow: hidden;
+            height: 100%;
+            object-fit: cover;
         }
 
-        /* Contact Section */
+
+        .team-img::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+        }
+
+        .team-img:nth-child(1) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .team-img:nth-child(2) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .team-img:nth-child(3) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .team-img:nth-child(4) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
         .contact {
             padding: 120px 50px;
-            background: #111;
+            background: #ffffff;
         }
 
         .contact-container {
@@ -237,12 +388,13 @@
             margin-bottom: 20px;
             text-align: center;
             letter-spacing: -2px;
+            color: #1a1a1a;
         }
 
         .contact-subtitle {
             text-align: center;
             font-size: 18px;
-            opacity: 0.7;
+            color: #718096;
             margin-bottom: 60px;
         }
 
@@ -254,24 +406,26 @@
             display: block;
             margin-bottom: 10px;
             font-weight: 600;
+            color: #2d3748;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
             padding: 18px 24px;
-            background: #1a1a1a;
-            border: 2px solid #2a2a2a;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
             border-radius: 12px;
-            color: #fff;
+            color: #1a1a1a;
             font-size: 16px;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #fff;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .form-group textarea {
@@ -282,18 +436,19 @@
         .submit-btn {
             width: 100%;
             padding: 18px;
-            background: #fff;
-            color: #0a0a0a;
+            background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+            color: #fff;
             border: none;
             border-radius: 12px;
             font-size: 18px;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .submit-btn:hover {
-            transform: scale(1.02);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
         .submit-btn:disabled {
@@ -310,27 +465,89 @@
         }
 
         .form-message.success {
-            background: #1a4d2e;
-            color: #4ade80;
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #9ae6b4;
         }
 
         .form-message.error {
-            background: #4d1a1a;
-            color: #f87171;
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #fc8181;
         }
 
-        /* Footer */
-        footer {
-            padding: 60px 50px;
-            background: #0a0a0a;
-            text-align: center;
+       footer {
+    padding: 40px 50px;
+    background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+    border-top: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+    color: #e5e7eb;
+}
+
+/* dotted mosaic overlay */
+footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.45) 0, rgba(148, 163, 184, 0.45) 1px, transparent 1px),
+        radial-gradient(circle at 100% 0, rgba(59, 130, 246, 0.55) 0, rgba(59, 130, 246, 0.55) 1px, transparent 1px),
+        radial-gradient(circle at 0 100%, rgba(96, 165, 250, 0.55) 0, rgba(96, 165, 250, 0.55) 1px, transparent 1px),
+        radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.75) 0, rgba(37, 99, 235, 0.75) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.8;
+    mix-blend-mode: screen;            /* gives that glowy mosaic feel */
+    z-index: 0;
+}
+
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
         }
+
+        .social-links {
+            display: flex;
+            gap: 14px;
+        }
+
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #4a5568;
+            text-decoration: none;
+
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #667eea;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(102, 126, 234, 0.2);
+        }
+
 
         footer p {
-            opacity: 0.5;
+            color: #fafafa;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             header {
                 padding: 20px 25px;
@@ -349,12 +566,21 @@
             .services, .about, .contact {
                 padding: 80px 25px;
             }
+
+             .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">Northbound</div>
+        <a href="index.html" class="logo-container">
+            <img src="logo2.png" alt="Limit Launcher logo" class="logo-img">
+            <div class="logo-text">Limit Launcher</div>
+        </a>
+
         <nav>
             <a href="#services">Services</a>
             <a href="#about">About</a>
@@ -364,10 +590,9 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>We Build</h1>
-            <div class="hero-subtitle">Together</div>
+            <div class="hero-subtitle hero-together">We Build. We Launch.</div>
         </div>
-        <div class="scroll-indicator">↓ Scroll to explore</div>
+        <div class="scroll-indicator"></div>
     </section>
 
     <div class="marquee-section">
@@ -376,7 +601,7 @@
                 <span>✦ Creative Agency</span>
                 <span>✦ Development</span>
                 <span>✦ Studio</span>
-                <span>✦ Website</span>
+                <span>✦ SEO & Performance</span>
                 <span>✦ Strategy</span>
                 <span>✦ WordPress</span>
                 <span>✦ Branding</span>
@@ -384,7 +609,7 @@
                 <span>✦ Creative Agency</span>
                 <span>✦ Development</span>
                 <span>✦ Studio</span>
-                <span>✦ Website</span>
+                <span>✦ SEO & Performance</span>
                 <span>✦ Strategy</span>
                 <span>✦ WordPress</span>
                 <span>✦ Branding</span>
@@ -397,25 +622,65 @@
         <h2 class="section-title">What We Do</h2>
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-icon">🎨</div>
-                <h3>Web Design</h3>
-                <p>Creating stunning, user-friendly interfaces that captivate your audience and drive conversions.</p>
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop" alt="Web Design">
             </div>
-            <div class="service-card">
-                <div class="service-icon">💻</div>
-                <h3>Development</h3>
-                <p>Building robust, scalable web applications with cutting-edge technologies and best practices.</p>
+            <h3>Web Design</h3>
+            <p>Creating stunning, user-friendly interfaces that captivate your audience and drive conversions.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop" alt="Development">
             </div>
-            <div class="service-card">
-                <div class="service-icon">🚀</div>
-                <h3>Digital Strategy</h3>
-                <p>Crafting comprehensive digital strategies that align with your business goals and drive growth.</p>
+            <h3>Development</h3>
+            <p>Building robust, scalable web applications with cutting-edge technologies and best practices.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop" alt="Digital Strategy">
             </div>
-            <div class="service-card">
-                <div class="service-icon">📱</div>
-                <h3>Brand Identity</h3>
-                <p>Developing unique brand identities that resonate with your target audience and stand out.</p>
+            <h3>Digital Strategy</h3>
+            <p>Crafting comprehensive digital strategies that align with your business goals and drive growth.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=800&auto=format&fit=crop" alt="Brand Identity">
             </div>
+            <h3>Brand Identity</h3>
+            <p>Developing unique brand identities that resonate with your target audience and stand out.</p>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-image">
+                <img 
+                    src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?q=80&w=800&auto=format&fit=crop" 
+                    alt="UI UX Research">
+            </div>
+            <h3>UI/UX Research</h3>
+            <p>
+                Understanding users through research, testing, and insights to design intuitive,
+                accessible, and delightful digital experiences.
+            </p>
+        </div>
+
+
+       <div class="service-card">
+            <div class="service-image">
+                <img 
+                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop" 
+                    alt="Conversion Optimization">
+            </div>
+            <h3>Conversion Optimization</h3>
+            <p>
+                Turning visitors into customers through data-driven design improvements,
+                A/B testing, and funnel optimization.
+            </p>
+        </div>
+
+
         </div>
     </section>
 
@@ -427,11 +692,20 @@
                 <p>Whether you're a seasoned player in the digital landscape or just stepping into it, we have the expertise and strategies to propel your brand forward.</p>
             </div>
             <div class="team-images">
-                <div class="team-img"></div>
-                <div class="team-img"></div>
-                <div class="team-img"></div>
-                <div class="team-img"></div>
+                <div class="team-img">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=600&auto=format&fit=crop" alt="Team Collaboration">
+                </div>
+                <div class="team-img">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" alt="Creative Team">
+                </div>
+                <div class="team-img">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=600&auto=format&fit=crop" alt="Startup Team">
+                </div>
+                <div class="team-img">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=600&auto=format&fit=crop" alt="Agency Workspace">
+                </div>
             </div>
+
         </div>
     </section>
 
@@ -464,14 +738,21 @@
     </section>
 
     <footer>
-        <p>© 2025 Northbound Agency. Made with ♥</p>
+        <div class="footer-content">
+            <p>© <span id="year"></span> Limit Launcher Agency</p>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/login" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.facebook.com/" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+        </div>
     </footer>
 
+
     <script>
-        // Register ScrollTrigger plugin
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero animations
         gsap.from('.hero h1', {
             opacity: 0,
             y: 100,
@@ -495,7 +776,6 @@
             ease: 'power2.out'
         });
 
-        // Service cards animation
         gsap.utils.toArray('.service-card').forEach((card, i) => {
             gsap.to(card, {
                 opacity: 1,
@@ -510,7 +790,6 @@
             });
         });
 
-        // About section animation
         gsap.from('.about-text', {
             opacity: 0,
             x: -100,
@@ -533,7 +812,6 @@
             }
         });
 
-        // Contact section animation
         gsap.from('.contact h2', {
             opacity: 0,
             scale: 0.8,
@@ -557,7 +835,6 @@
             }
         });
 
-        // Form submission handling
         const form = document.getElementById('contactForm');
         const submitBtn = document.getElementById('submitBtn');
         const formMessage = document.getElementById('formMessage');
@@ -577,7 +854,6 @@
             };
 
             try {
-                // Your n8n webhook URL
                 const n8nWebhookUrl = 'https://n8ngilbert.app.n8n.cloud/webhook/contact_gemini';
                 
                 const response = await fetch(n8nWebhookUrl, {
@@ -607,7 +883,6 @@
             }
         });
 
-        // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -617,6 +892,9 @@
                 }
             });
         });
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+
     </script>
 </body>
 </html>
